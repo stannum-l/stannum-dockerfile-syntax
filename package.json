@@ -2,7 +2,7 @@
   "name": "stannum-dockerfile-syntax",
   "displayName": "Stannum Dockerfile Syntax",
   "description": "Dockerfile Syntax Highlight",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "preview": true,
   "icon": "docker.png",
   "license": "Apache-2.0",
