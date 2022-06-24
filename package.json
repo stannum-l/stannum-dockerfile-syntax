@@ -1,0 +1,42 @@
+{
+  "name": "stannum-dockerfile-syntax",
+  "displayName": "Stannum Dockerfile Syntax",
+  "description": "Dockerfile Syntax Highlight",
+  "version": "0.0.1",
+  "preview": true,
+  "icon": "docker.png",
+  "license": "Apache-2.0",
+  "publisher": "stannum",
+  "engines": {
+    "vscode": "^1.68.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stannum-l/stannum-dockerfile-syntax"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "dockerfile",
+        "aliases": [
+          "dockerfile",
+          "Dockerfile"
+        ],
+        "extensions": [
+          ""
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dockerfile",
+        "scopeName": "source.dockerfile",
+        "path": "./syntaxes/dockerfile.tmLanguage.json"
+      }
+    ]
+  }
+}
