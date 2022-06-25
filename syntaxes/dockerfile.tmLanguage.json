@@ -168,18 +168,96 @@
       }
     },
     "label_statement": {
-      "match": "((?i-mx:LABEL))\\s+([^\\s]+)\\s*=\\s*([^\\s]++)",
-      "captures": {
+      "contentName": "meta.command.label.dockerfile",
+      "begin": "((?<!\\w)LABEL(?!\\w))",
+      "beginCaptures": {
         "1": {
-          "name": "keyword.other.special-method.label.dockerfile"
-        },
-        "2": {
-          "name": "variable.other.label.dockerfile"
-        },
-        "3": {
-          "name": "parameter.other.label.dockerfile"
+          "name": "keyword.other.special-method.dockerfile"
         }
-      }
+      },
+      "end": "(?<=[^\\\\]\\n)",
+      "patterns": [
+        {
+          "match": "(?<=LABEL)\\s+(\\w+) +(.+)",
+          "captures": {
+            "1": {
+              "name": "variable.other.label.dockerfile"
+            },
+            "2": {
+              "name": "string.unquoted.dockerfile"
+            }
+          }
+        },
+        {
+          "match": "(\\w+?(?==))(\\=)",
+          "captures": {
+            "1": {
+              "name": "variable.other.label.dockerfile"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.dockerfile"
+            }
+          }
+        },
+        {
+          "name": "string.quoted.single.dockerfile",
+          "begin": "(?<==)(')",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.begin.dockerfile"
+            }
+          },
+          "end": "(')",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.end.dockerfile"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#escape"
+            },
+            {
+              "include": "#variable"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.dockerfile",
+          "begin": "(?<==)(\")",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.begin.dockerfile"
+            }
+          },
+          "end": "(\")",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.end.dockerfile"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#escape"
+            },
+            {
+              "include": "#variable"
+            }
+          ]
+        },
+        {
+          "match": "(?<==)((?:\\\\\\s|[^\\s])+)",
+          "captures": {
+            "1": {
+              "name": "string.unquoted.dockerfile"
+            }
+          }
+        },
+        {
+          "match": "\\\\\\n",
+          "name": "constant.character.escape.line-continuation.dockerfile"
+        }
+      ]
     },
     "from_statement": {
       "match": "((?i-mx:FROM))\\s+([^\\s]+)(?:\\s+((?i-mx:AS))\\s+([^\\s]++))?",
