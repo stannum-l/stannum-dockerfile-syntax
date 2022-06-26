@@ -136,22 +136,50 @@
       ]
     },
     "copy_statement": {
-      "match": "((?i-mx:COPY))\\s+((?i-mx:--from=)[^\\s]+\\s+)?([^\\s]+)\\s+([^\\s]++)",
-      "captures": {
+      "contentName": "meta.command.copy.dockerfile",
+      "begin": "((?<!\\w)COPY(?!\\w))",
+      "beginCaptures": {
         "1": {
-          "name": "keyword.other.special-method.COPY.dockerfile"
-        },
-        "2": {
-          "name": "parameter.other.copy.from.dockerfile"
-
-        },
-        "3": {
-          "name": "variable.other.copy.source.dockerfile"
-        },
-        "4": {
-          "name": "variable.other.copy.target.dockerfile"
+          "name": "keyword.other.special-method.dockerfile"
         }
-      }
+      },
+      "end": "(?<=[^\\\\]\\n)",
+      "patterns": [
+        {
+          "match": "\\\\\\n",
+          "name": "constant.character.escape.line-continuation.dockerfile"
+        },
+        {
+          "match": "(--[\\w\\.\\-]+?)(\\=)([^\\s]+)",
+          "captures": {
+            "1": {
+              "name": "variable.other.copy.dockerfile"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.dockerfile"
+            },
+            "3": {
+              "name": "parameter.other.copy.from.dockerfile"
+            }
+          }
+        },
+        {
+          "match": "([^\\s\\=]+\\s*)[^\\\\]$",
+          "captures": {
+            "1": {
+              "name": "variable.other.copy.target.dockerfile"
+            }
+          }
+        },
+        {
+          "match": "([^\\s\\=]+\\s*)",
+          "captures": {
+            "1": {
+              "name": "variable.other.copy.source.dockerfile"
+            }
+          }
+        }
+      ]
     },
     "arg_statement": {
       "match": "((?i-mx:ARG))\\s+([^\\s]+)\\s*=\\s*([^\\s]++)",
